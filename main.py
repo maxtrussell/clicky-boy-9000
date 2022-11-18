@@ -40,5 +40,5 @@ class AutoClicker:
                 if isinstance(event, mouse.Events.Click):
                     break
 
-clicker = AutoClicker(0.001, GAME_TICK*3.5)
+clicker = AutoClicker(0.25, GAME_TICK*3.5)
 clicker.run()
