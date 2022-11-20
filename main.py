@@ -1,15 +1,16 @@
 from random import randint
 import time
 
+import numpy as np
 import pyautogui as pag
 from pynput import keyboard, mouse
 
 GAME_TICK = 0.6
 
 class AutoClicker:
-    def __init__(self, interval, delta):
-        self.interval = interval
-        self.delta = delta
+    def __init__(self, mean, std):
+        self.mean = mean
+        self.std = std
         self.suspend = False
 
     def run(self):
@@ -25,8 +26,8 @@ class AutoClicker:
                 pag.click()
 
     def sleep(self):
-        jitter = randint(0, self.delta * 10) / 10
-        time.sleep(self.interval + jitter)
+        samples = np.random.normal(self.mean, self.std, 1)
+        time.sleep(samples[0])
 
     def on_kb(self, key):
         if key == keyboard.Key.space:
@@ -40,5 +41,5 @@ class AutoClicker:
                 if isinstance(event, mouse.Events.Click):
                     break
 
-clicker = AutoClicker(0.25, GAME_TICK*3.5)
+clicker = AutoClicker(0.6, 0.1)
 clicker.run()
