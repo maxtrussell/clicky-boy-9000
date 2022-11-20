@@ -27,7 +27,7 @@ class AutoClicker:
 
     def sleep(self):
         samples = np.random.normal(self.mean, self.std, 1)
-        time.sleep(samples[0])
+        time.sleep(max(samples[0], 0.1))
 
     def on_kb(self, key):
         if key == keyboard.Key.space:
